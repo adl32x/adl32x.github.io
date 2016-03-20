@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Pastille - More convenient npm install &amp;&amp; bower install | Andy&#39;s</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="I got tired of running npm install &amp;amp;&amp;amp; bower install over and over again so I wrote a bash script to do it for me automatically and backup the dependency folders. Read the explanation below, or">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pastille - More convenient npm install && bower install">
+<meta property="og:url" content="http://adl32x.github.io/2016/01/24/pastille/index.html">
+<meta property="og:site_name" content="Andy's">
+<meta property="og:description" content="I got tired of running npm install &amp;amp;&amp;amp; bower install over and over again so I wrote a bash script to do it for me automatically and backup the dependency folders. Read the explanation below, or">
+<meta property="og:updated_time" content="2016-01-24T13:55:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pastille - More convenient npm install && bower install">
+<meta name="twitter:description" content="I got tired of running npm install &amp;amp;&amp;amp; bower install over and over again so I wrote a bash script to do it for me automatically and backup the dependency folders. Read the explanation below, or">
+  
+    <link rel="alternative" href="/atom.xml" title="Andy&#39;s" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Andy&#39;s</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://adl32x.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-pastille" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/24/pastille/" class="article-date">
+  <time datetime="2016-01-24T13:55:38.000Z" itemprop="datePublished">2016-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pastille - More convenient npm install &amp;&amp; bower install
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I got tired of running <code>npm install &amp;&amp; bower install</code> over and over again so I wrote a bash script to do it for me automatically and backup the dependency folders. Read the explanation below, or just copy it to your path! :)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span><br><span class="line"></span></span><br><span class="line"><span class="keyword">if</span> [ ! <span class="operator">-d</span> ~/.pastille ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"First time using pastille, creating ~/.pastille."</span></span><br><span class="line">    mkdir ~/.pastille</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Returns the md5 sum of a file. Uses md5 or md5sum.</span></span><br><span class="line"><span class="function"><span class="title">md5_f</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span> md5sum &amp;&gt; /dev/null; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">local</span> result=`md5sum <span class="variable">$1</span> | cut -c <span class="number">1</span>-<span class="number">32</span>`</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$result</span>"</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="built_in">type</span> md5 &amp;&gt; /dev/null; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">local</span> result=`md5 -q <span class="variable">$1</span>`</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$result</span>"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"No md5 or md5sum available. Exiting."</span></span><br><span class="line">        <span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Returns the md5 sum of a string. Uses md5 or md5sum.</span></span><br><span class="line"><span class="function"><span class="title">md5_s</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span> md5sum &amp;&gt; /dev/null; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">local</span> result=`<span class="built_in">echo</span> -n <span class="string">"<span class="variable">$1</span>"</span> | md5sum | cut -c <span class="number">1</span>-<span class="number">32</span>`</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$result</span>"</span></span><br><span class="line">    <span class="keyword">elif</span> <span class="built_in">type</span> md5 &amp;&gt; /dev/null; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">local</span> result=`md5 -q <span class="operator">-s</span> <span class="variable">$1</span>`</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$result</span>"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"No md5 or md5sum available. Exiting."</span></span><br><span class="line">        <span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">NODE=`node --version`</span><br><span class="line">NPM=`npm --version`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Back up node_modules.</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="operator">-f</span> package.json ]; <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">    PACKAGE=`md5_f package.json`</span><br><span class="line">    FULLSUM=`md5_s <span class="variable">$PACKAGE</span><span class="variable">$NODE</span><span class="variable">$NPM</span>`</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ ! <span class="operator">-f</span> ~/.pastille/<span class="variable">$FULLSUM</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"No pastille for this package.json. Creating."</span></span><br><span class="line">        rm -rf node_modules/</span><br><span class="line">        npm install</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> [ ! <span class="operator">-d</span> node_modules/ ]; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"No node_modules, no pastille created."</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            touch ~/.pastille/<span class="variable">$FULLSUM</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"- Compressing node_modules to ~/.pastille/<span class="variable">$FULLSUM</span>.tar.gz"</span></span><br><span class="line">            tar -czf ~/.pastille/<span class="variable">$FULLSUM</span>.tar.gz node_modules/</span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"- Compressed node_modules!"</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Pastille found for this package.json."</span></span><br><span class="line">        rm -rf node_modules/</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"- Extracting ~/.pastille/<span class="variable">$FULLSUM</span>.tar.gz"</span></span><br><span class="line">        tar -xzf ~/.pastille/<span class="variable">$FULLSUM</span>.tar.gz</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Back up vendor.</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="operator">-f</span> bower.json ]; <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">    BOWER=`md5_f bower.json`</span><br><span class="line">    BOWERFULLSUM=`md5_s <span class="variable">$BOWER</span><span class="variable">$NODE</span><span class="variable">$NPM</span>`</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [ ! <span class="operator">-f</span> ~/.pastille/vendor-<span class="variable">$BOWERFULLSUM</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"No pastille for this bower.json. Creating."</span></span><br><span class="line">        touch ~/.pastille/vendor-<span class="variable">$BOWERFULLSUM</span></span><br><span class="line">        rm -rf vendor/</span><br><span class="line">        bower install</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> [ ! <span class="operator">-d</span> vendor/ ]; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"No vendor, no pastille created."</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            touch ~/.pastille/vendor-<span class="variable">$BOWERFULLSUM</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"- Compressing vendor to ~/.pastille/vendor-<span class="variable">$BOWERFULLSUM</span>.tar.gz"</span></span><br><span class="line">        tar -czf ~/.pastille/vendor-<span class="variable">$BOWERFULLSUM</span>.tar.gz vendor/</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Pastille found for this bower.json."</span></span><br><span class="line">        rm -rf vendor/</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"- Extracting ~/.pastille/vendor-<span class="variable">$BOWERFULLSUM</span>.tar.gz"</span></span><br><span class="line">        tar -xzf ~/.pastille/vendor-<span class="variable">$BOWERFULLSUM</span>.tar.gz</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"- Compressed vendor!"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>A lot of times, I found myself quickly switching between git branches - and even differnt node and npm versions - with totally different dependencies. Switching back and forth and doing npm installs multiple times a day got cumbersome, so I wrote that little script.</p>
+<h2 id="What_the_script_does"><a href="#What_the_script_does" class="headerlink" title="What the script does"></a>What the script does</h2><p>Basically it just makes backups of <code>node_modules/</code> and <code>vendor/</code> saving them under <code>~/.pastille</code> and the other way around.</p>
+<ol>
+<li>Calculates a checksum of package.json, your node and npm version. (It uses either md5 or md5sum = should work on both OSX and Linux)</li>
+<li>Checks from <code>~/.pastille/</code> if a backup file for this combination exists.<br>3a. If exists, uncompress the backup file into the current directory.<br>3b. If not, runs <code>npm install</code> and backups the node_modules directory under <code>.pastille/</code> with the hash.</li>
+<li>Do the same with bower’s files.</li>
+</ol>
+<h2 id="Installation__26amp_3B_Usage"><a href="#Installation__26amp_3B_Usage" class="headerlink" title="Installation &amp; Usage"></a>Installation &amp; Usage</h2><p>Just copy it to your path, eg. /usr/local/bin as ‘pastille’, and use it instead of <code>npm install</code> :)</p>
+<h2 id="How_I_use_it"><a href="#How_I_use_it" class="headerlink" title="How I use it"></a>How I use it</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout A</span><br><span class="line">$ pastille</span><br><span class="line">No pastille <span class="keyword">for</span> this package<span class="class">.json</span>. Creating.</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">&gt; Compressing node_modules to ~/.pastille/<span class="number">7</span>ed8f0049fb6d6a9b5013a128536e302<span class="class">.tar</span><span class="class">.gz</span><span class="class">.tar</span><span class="class">.gz</span></span><br><span class="line">$ git checkout B</span><br><span class="line">$ pastille</span><br><span class="line">No pastille <span class="keyword">for</span> this package<span class="class">.json</span>. Creating.</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">&gt; Compressing node_modules to ~/.pastille/<span class="number">1743779748</span>bfc1d447867397bc45b4d3<span class="class">.tar</span><span class="class">.gz</span></span><br><span class="line">$ git checkout A</span><br><span class="line">$ pastille</span><br><span class="line">Pastille found <span class="keyword">for</span> this package<span class="class">.json</span>.</span><br><span class="line">&gt; Extracting ~/.pastille/<span class="number">7</span>ed8f0049fb6d6a9b5013a128536e302<span class="class">.tar</span><span class="class">.gz</span><span class="class">.tar</span><span class="class">.gz</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://adl32x.github.io/2016/01/24/pastille/" data-id="cijslycro0001c35tu8hthuok" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/01/24/pastille/">Pastille - More convenient npm install &amp;&amp; bower install</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/24/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Andreas Lindroos<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
